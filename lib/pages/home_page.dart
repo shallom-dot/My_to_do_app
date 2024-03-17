@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taskk/utilities/dialog_box.dart';
 import 'package:taskk/utilities/to_do_tile.dart';
 
 class Homepage extends StatefulWidget {
@@ -24,7 +25,7 @@ class _HomepageState extends State<Homepage> {
   //creat a new task
   void createNewTask() {
     showDialog(context: context, builder: (context){
-      return AlertDialog();
+      return DialogBox();
     },
     );
   }
