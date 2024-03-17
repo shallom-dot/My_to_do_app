@@ -10,6 +10,7 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  final _controller = TextEditingController();
   // List of to do task
   List toDoList =[
     ['Fetch water', false],
@@ -22,10 +23,22 @@ class _HomepageState extends State<Homepage> {
       toDoList[index][1] = !toDoList[index][1];
     });
   }
+
+  //save new task
+  void saveNewTask(){
+    setState(() {
+      toDoList.add([_controller.text, false]);
+    });
+  }
+
   //creat a new task
   void createNewTask() {
     showDialog(context: context, builder: (context){
-      return DialogBox();
+      return DialogBox(
+        controller: _controller, 
+        onSave: saveNewTask, 
+        onCancel: () => Navigator.of(context).pop(),
+      );
     },
     );
   }
@@ -41,7 +54,7 @@ class _HomepageState extends State<Homepage> {
       ),
       floatingActionButton: Tooltip(
         message: 'Tap to add task',
-        textStyle: TextStyle(
+        textStyle: const TextStyle(
           color: Colors.red
         ),
         child: FloatingActionButton(onPressed:createNewTask,
@@ -49,7 +62,7 @@ class _HomepageState extends State<Homepage> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25.0)
         ),
-        child: Icon(Icons.add),),
+        child: const Icon(Icons.add),),
       ),
       body: ListView.builder(
         itemCount: toDoList.length,
