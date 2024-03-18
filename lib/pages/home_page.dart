@@ -28,7 +28,9 @@ class _HomepageState extends State<Homepage> {
   void saveNewTask(){
     setState(() {
       toDoList.add([_controller.text, false]);
+      _controller.clear();
     });
+    Navigator.of(context).pop();
   }
 
   //creat a new task
@@ -42,7 +44,13 @@ class _HomepageState extends State<Homepage> {
     },
     );
   }
+// delete task
 
+void deleteTask(int index) {
+  setState(() {
+    toDoList.removeAt(index);
+  });
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,6 +78,7 @@ class _HomepageState extends State<Homepage> {
           taskName: toDoList[index] [0],
          taskCompleted: toDoList[index] [1], 
          onChanged: (value) => checkBoxChanged(value, index),
+         deleteFunction: (context) => deleteTask(index),
          ),
       )
     );
